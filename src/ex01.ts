@@ -1,27 +1,37 @@
 /**
  * Exercise 1: Access Modifiers
- *
- * Instructions:
- * - Create a class `Smartphone` with:
- *   - public property: `brand` (string)
- *   - private property: `batteryLevel` (number, 0-100)
- *   - protected property: `os` (string)
- * - Methods:
- *   - `charge(amount: number)` increases batteryLevel but max 100
- *   - `showInfo()` logs brand, batteryLevel, and os
-  * - Create a subclass `AndroidPhone` with a method of upgradeOS that accepts a string parameter and updates the `os` property with that parameter.
  */
 
 class Smartphone {
+    public brand: string;
+    private batteryLevel: number;
+    protected os: string;
   
-}
-
-class AndroidPhone extends Smartphone {
+    constructor(brand: string, batteryLevel: number, os: string) {
+      this.brand = brand;
+      this.batteryLevel = Math.min(100, batteryLevel);
+      this.os = os;
+    }
   
-}
-
-// Driver code
-const phone = new AndroidPhone("Samsung", 50, "Android 12");
-phone.charge(30);
-phone.upgradeOS("Android 13");
-phone.showInfo(); // Samsung, Battery: 80%, OS: Android 13
+    public charge(amount: number): void {
+      this.batteryLevel = Math.min(100, this.batteryLevel + amount);
+    }
+  
+    public showInfo(): void {
+      console.log(`${this.brand}, Battery: ${this.batteryLevel}%, OS: ${this.os}`);
+    }
+  }
+  
+  class AndroidPhone extends Smartphone {
+    public upgradeOS(newOS: string): void {
+      this.os = newOS;
+    }
+  }
+  
+  // Driver code
+  const phone = new AndroidPhone("Samsung", 50, "Android 12");
+  phone.charge(30);
+  phone.upgradeOS("Android 13");
+  phone.showInfo(); 
+  // Expected output: Samsung, Battery: 80%, OS: Android 13
+  

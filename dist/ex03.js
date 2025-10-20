@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Exercise 3: Singleton
  *
@@ -10,39 +11,30 @@
  *   - `increment()` increases the counter
  *   - `getCount()` returns the current count
  */
-
 class Counter {
-    private static instance: Counter;
-    private count: number = 0;
-  
     // Constructor privado impide instanciar directamente
-    private constructor() {}
-  
+    constructor() {
+        this.count = 0;
+    }
     // Método público para acceder a la única instancia
-    public static getInstance(): Counter {
-      if (!Counter.instance) {
-        Counter.instance = new Counter();
-      }
-      return Counter.instance;
+    static getInstance() {
+        if (!Counter.instance) {
+            Counter.instance = new Counter();
+        }
+        return Counter.instance;
     }
-  
-    public increment(): void {
-      this.count++;
+    increment() {
+        this.count++;
     }
-  
-    public getCount(): number {
-      return this.count;
+    getCount() {
+        return this.count;
     }
-  }
-
-  
-  const counter1 = Counter.getInstance();
+}
+const counter1 = Counter.getInstance();
 const counter2 = Counter.getInstance();
-
 counter1.increment(); // count = 1
 counter1.increment(); // count = 2
 counter2.increment(); // count = 3
-
 console.log(counter1.getCount()); // 3
 console.log(counter2.getCount()); // 3
 console.log(counter1 === counter2); // true
